@@ -64,6 +64,8 @@ for i in range(num):
         if Ingredient not in all_ingredients:
             all_ingredients.append(Ingredient)
 
+    recipes_list.append(recipe)
+
 data = {'recipes_list': recipes_list, 'all_ingredients': all_ingredients}
 
 new_file_name = input('what do you want to call this file? ')
