@@ -1,30 +1,41 @@
 import pickle
 
+
 def calc_difficulty(recipe):
-    if recipe['cooking_time'] < 10 and len(recipe['ingredients']) < 4:
+    if recipe['Cooking_time'] < 10 and len(recipe['Ingredients']) < 4:
         difficulty = 'easy'
 
-    elif recipe['cooking_time'] < 10 and len(recipe['ingredients']) >= 4:
+    elif recipe['Cooking_time'] < 10 and len(recipe['Ingredients']) >= 4:
         difficulty = 'medium'
 
-    elif recipe['cooking_time'] >= 10 and len(recipe['ingredients']) < 4:
+    elif recipe['Cooking_time'] >= 10 and len(recipe['Ingredients']) < 4:
         difficulty = 'intermediate'
 
-    elif recipe['cooking_time'] >= 10 and len(recipe['ingredients']) >= 4:
+    elif recipe['Cooking_time'] >= 10 and len(recipe['Ingredients']) >= 4:
         difficulty = 'difficult'
+
+    else:
+        difficulty = 'unknown'
     return difficulty
 
+
 def take_recipe():
-    name =input('enter the name of your recipe')
-    cooking_time = int(
+    Name = input('enter the name of your recipe: ')
+    Cooking_time = int(
         input('how long does it take to cook your stuff? ')
     )
-    ingredients = input('what stuff goes in this recipe? ')
-    ingredients = ingredients.split()
-    ingredients = [ingredient.lower() for ingredient in ingredients]
-    recipe = {"Name": name, 'cooking_time': cooking_time, 'ingredients': ingredients}
+    Ingredients = input('what stuff goes in this recipe? ')
+    try:
+        Ingredients = Ingredients.split()
+        Ingredients = [Ingredient.lower() for Ingredient in Ingredients]
+    except ValueError:
+        print('Invalid ingredients')
+        return
+    recipe = {"Name": Name, 'Cooking_time': Cooking_time,
+              'Ingredients': Ingredients}
     recipe['difficulty'] = calc_difficulty(recipe)
     return recipe
+
 
 recipes_list = []
 all_ingrediens = []
@@ -36,7 +47,7 @@ try:
     data = pickle.load(recipes_file)
 except FileNotFoundError:
     print('file not found, creating new file')
-    data = {"recipes_list":[], 'all_ingredients': []}
+    data = {"recipes_list": [], 'all_ingredients': []}
 else:
     recipes_file.close()
 finally:
@@ -49,12 +60,12 @@ for i in range(num):
     recipe = take_recipe()
     print(recipe)
 
-    for ingredient in recipe['ingredients']:
-        if ingredient not in all_ingredients:
-            all_ingredients.append(ingredient)
+    for Ingredient in recipe['Ingredients']:
+        if Ingredient not in all_ingredients:
+            all_ingredients.append(Ingredient)
 
-data = { 'recipes_list': recipes_list, 'all_ingredients': all_ingredients}
+data = {'recipes_list': recipes_list, 'all_ingredients': all_ingredients}
 
 new_file_name = input('what do you want to call this file? ')
-with open(new_file_name, 'wb') as f:
-    pickle.dump(data, f)
+new_file_name = open(new_file_name, 'wb')
+pickle.dump(data, new_file_name)
