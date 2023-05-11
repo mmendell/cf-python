@@ -39,13 +39,19 @@ class Height(object):
 
         return height_A_inches != height_B_inches
 
+height_1 = Height(4, 10)
+height_2 = Height(5, 6)
+height_3 = Height(7, 1)
+height_4 = Height(5, 5)
+height_5 = Height(6, 7)
+height_6 = Height(5, 6)
 
-height1 = Height(4, 6)
-height2 = Height(4, 5)
-height3 = Height(5, 9)
-height4 = Height(5, 10)
 
+
+heights = sorted(heights)
+for height in heights:
+    print(height)
 # print(height1 < height2)
-print(height2 >= height2)
-print(height3 == height4)
-print(height1 != height3)
+# print(height_2 >= height_2)
+# print(height_3 == height_4)
+# print(height_1 != height_3)
